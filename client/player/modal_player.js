@@ -33,13 +33,20 @@ Template.tModalPlayer.events({
     var gerseyNumber = $('.gersey-number').val();
     var seasonFeeOwed = $('.season-fee-owed').val();
     var seasonFeePaid = $('.season-fee-paid').val();
-    updatePlayer(firstName, gameStatus, fieldPosition, gerseyNumber, seasonFeeOwed, seasonFeePaid);
+    var total = seasonFeeOwed - seasonFeePaid;
+    updatePlayer(firstName, gameStatus, fieldPosition, gerseyNumber, seasonFeeOwed, seasonFeePaid, total);
     $("#modal-id").modal("hide");
     Session.set('sPlayerId', null);
+    // money(owed, paid);
   }
 });
 
-var updatePlayer = function(firstName, gameStatus, fieldPosition, gerseyNumber, seasonFeeOwed, seasonFeePaid) {
+// var money = function(owed, paid) {
+//   total = owed - paid;
+//   return total;
+// }
+
+var updatePlayer = function(firstName, gameStatus, fieldPosition, gerseyNumber, seasonFeeOwed, seasonFeePaid, total) {
   Players.update(Session.get("sPlayerId"), {
     $set: {
       firstName: firstName,
@@ -47,7 +54,8 @@ var updatePlayer = function(firstName, gameStatus, fieldPosition, gerseyNumber, 
       fieldPosition: fieldPosition,
       gerseyNumber: gerseyNumber,
       seasonFeeOwed: seasonFeeOwed,
-      seasonFeePaid: seasonFeePaid
+      seasonFeePaid: seasonFeePaid,
+      total: total
     }
   });
 

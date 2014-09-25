@@ -33,3 +33,10 @@ var removePlayer = function() {
         _id: Session.get('sPlayerId')
     });
 };
+
+Template.tRoster.helpers({
+    math: function() {
+        owed: {$in: ["seasonFeeOwed"]}
+        return owed;
+    }
+});
